@@ -1,0 +1,21 @@
+from rocker/rstudio
+
+run whoami
+run pwd
+run ls -alh
+run Rscript -e "install.packages('cowsay')"
+
+workdir /home/rstudio
+run pwd
+copy --chown=rstudio:rstudio renv.lock .
+copy --chown=rstudio:rstudio renv renv
+copy --chown=rstudio:rstudio .Rprofile .
+
+Run ls -alh
+
+user rstudio 
+run Rscript -e "renv::repair()"
+user root
+
+
+
